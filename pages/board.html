@@ -15,8 +15,86 @@
         <span></span>
       </div>
     </header>
-    <main class="container page-container" id="boardPage">
-      <h2 class="title">게시글 목록</h2>
+    <main class="container page-container board" id="boardPage">
+      <div class="board-header">
+        <p class="greeting">
+          안녕하세요,<br />
+          아무 말 대잔치 <b>게시판</b>입니다.
+        </p>
+        <button class="new-post-btn btn">
+          <a href="post/write.html"> 게시글 작성 </a>
+        </button>
+      </div>
+      <section class="posts">
+        <div class="post-box" data-post-id="0">
+          <a href="post/detail.html?id=0">
+            <div class="box-header">
+              <h1>제목 입니다</h1>
+              <ul class="post-info">
+                <li>좋아요 <span>0</span></li>
+                <li>댓글 <span>0</span></li>
+                <li>조회수 <span>0</span></li>
+                <li>2021-01-01 00:00:00</li>
+              </ul>
+            </div>
+            <div class="box-footer">
+              <img src="https://placehold.co/30x30" alt="" />
+              <span>더미 작성자1</span>
+            </div>
+          </a>
+        </div>
+        <div class="post-box" data-post-id="1">
+          <a href="post/detail.html?id=1">
+            <div class="box-header">
+              <h1>제목 입니다</h1>
+              <ul class="post-info">
+                <li>좋아요 <span>0</span></li>
+                <li>댓글 <span>0</span></li>
+                <li>조회수 <span>0</span></li>
+                <li>2021-01-01 00:00:00</li>
+              </ul>
+            </div>
+            <div class="box-footer">
+              <img src="https://placehold.co/30x30" alt="" />
+              <span>더미 작성자1</span>
+            </div>
+          </a>
+        </div>
+        <div class="post-box" data-post-id="2">
+          <a href="post/detail.html?id=2">
+            <div class="box-header">
+              <h1>제목 입니다</h1>
+              <ul class="post-info">
+                <li>좋아요 <span>0</span></li>
+                <li>댓글 <span>0</span></li>
+                <li>조회수 <span>0</span></li>
+                <li>2021-01-01 00:00:00</li>
+              </ul>
+            </div>
+            <div class="box-footer">
+              <img src="https://placehold.co/30x30" alt="" />
+              <span>더미 작성자1</span>
+            </div>
+          </a>
+        </div>
+        <div class="post-box" data-post-id="3">
+          <a href="post/detail.html?id=3">
+            <div class="box-header">
+              <h1>제목 입니다</h1>
+              <ul class="post-info">
+                <li>좋아요 <span>0</span></li>
+                <li>댓글 <span>0</span></li>
+                <li>조회수 <span>0</span></li>
+                <li>2021-01-01 00:00:00</li>
+              </ul>
+            </div>
+            <div class="box-footer">
+              <img src="https://placehold.co/30x30" alt="" />
+              <span>더미 작성자1</span>
+            </div>
+          </a>
+        </div>
+      </section>
     </main>
     <script src="/src/js/board.js"></script>
   </body>

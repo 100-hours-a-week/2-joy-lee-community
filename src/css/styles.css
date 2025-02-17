@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   height: 60px;
-  border: 1px solid #000;
+  border-bottom: 1px solid #000;
 }
 
 .header img {
@@ -19,8 +19,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 375px;
+  width: 480px;
   margin: 0 auto;
+  padding: 0 15px;
 }
 
 .header .container {
@@ -30,6 +31,11 @@
 .page-container {
   flex: 1;
   flex-direction: column;
+  padding: 25px 15px 80px;
+}
+
+.container.board {
+  justify-content: flex-start;
 }
 
 .title {
@@ -58,7 +64,8 @@
   margin-bottom: 5px;
 }
 
-.form-group input {
+.form-group input,
+.form-group textarea {
   width: 100%;
   border-radius: 5px;
   border: 1px solid #000;
@@ -78,14 +85,17 @@
 }
 
 .btn {
-  width: 100%;
   color: #fff;
   padding: 7px 0;
   font-weight: bold;
   border-radius: 5px;
-  margin-top: 25px;
-  background-color: #d9d9d9;
+  background-color: #aca0eb;
   transition: all 0.2s ease-in-out;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 25px;
 }
 
 .linkto {
@@ -95,11 +105,16 @@
 }
 
 .active {
-  background-color: #aca0eb;
+  background-color: #7f6aee;
+}
+
+.icon-goback {
+  cursor: pointer;
 }
 
 /* COMMON CSS END */
 
+/* 회원가입 페이지 */
 .label {
   font-weight: bold;
 }
@@ -126,6 +141,289 @@
   display: none;
 }
 
-.icon-goback {
-  cursor: pointer;
+/* 게시글 목록 페이지 */
+.board-header {
+  width: 100%;
+}
+
+.greeting {
+  text-align: center;
+  font-size: 18px;
+  margin: 30px 0;
+}
+
+.greeting b {
+  font-weight: bold;
+}
+
+.new-post-btn {
+  display: block;
+  margin-left: auto;
+  width: 140px;
+  border-radius: 25px;
+  font-size: 15px;
+}
+
+.new-post-btn:hover {
+  background-color: #7f6aee;
+}
+
+.posts {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.post-box {
+  border-radius: 15px;
+  background-color: #fff;
+  box-shadow: 3px 4px 4px 0px #cccccc40;
+}
+
+.post-box + div {
+  margin-top: 10px;
+}
+
+.box-header {
+  border-bottom: 1px solid #dedede;
+  padding: 17px 15px;
+}
+
+.box-header h1 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.post-info {
+  display: flex;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.post-info li:last-child {
+  margin-left: auto;
+}
+
+.box-footer {
+  padding: 17px 15px;
+  display: flex;
+  align-items: center;
+}
+
+.box-footer img {
+  border-radius: 50%;
+}
+
+.box-footer span {
+  font-size: 14px;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+/* 게시글 작성 페이지 */
+.board .form {
+  width: 100%;
+}
+
+#postForm input#image {
+  border: none;
+  padding: 0;
+  background: none;
+}
+
+#postForm textarea {
+  height: 200px;
+}
+
+#postForm label[for='image'] {
+  margin-top: 30px;
+}
+
+/* 게시글 상세 페이지 */
+.board article div + div {
+  border-top: 1px solid #dedede;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.post-header {
+  padding: 0 10px;
+  position: relative;
+}
+
+.post-header h1 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+}
+
+.post-meta img {
+  border-radius: 50%;
+}
+
+.post-meta .author {
+  font-weight: bold;
+  margin-left: 7px;
+}
+
+.post-meta .created-at {
+  font-size: 14px;
+  margin-left: 20px;
+}
+
+.action-btns {
+  position: absolute;
+  right: 0;
+  bottom: 15px;
+  display: flex;
+  gap: 5px;
+  font-size: 13px;
+}
+
+.action-btns button {
+  border: 1px solid #999;
+  border-radius: 8px;
+  padding: 1px 7px;
+}
+
+.comment-item {
+  position: relative;
+}
+
+.post-body .post-image {
+  margin-bottom: 20px;
+}
+
+.post-body .post-text {
+  font-size: 15px;
+}
+
+.count-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.count-box li {
+  background: #d9d9d9;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 18px;
+  padding: 15px 0;
+  width: 120px;
+}
+
+.count-box li span {
+  display: block;
+  font-size: 18px;
+}
+
+.comment-form {
+  width: 100%;
+  border-radius: 5px;
+  padding-bottom: 7px;
+  background-color: #fff;
+  box-shadow: 3px 4px 4px 0px #cccccc40;
+  overflow: hidden;
+}
+
+.comment-form .wrapper {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #dedede;
+}
+
+#commentForm textarea {
+  width: 100%;
+  height: 90px;
+  padding: 10px 15px;
+  border: none;
+}
+
+#commentForm .submit-btn {
+  width: 130px;
+  margin-top: 7px;
+  margin-left: auto;
+  margin-right: 10px;
+  border-radius: 18px;
+}
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px 10px 0;
+}
+
+.comment-text {
+  font-size: 15px;
+  margin-top: 10px;
+  margin-left: 38px;
+}
+
+/* 삭제 모달 창 */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  text-align: center;
+  padding: 30px 20px;
+  border-radius: 12px;
+  width: 320px;
+  z-index: 2;
+}
+
+.modal p {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+}
+
+.modal span {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.modal-btns {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.modal-btns button {
+  width: 120px;
+  padding: 10px 0;
+  border-radius: 12px;
+}
+
+#cancelBtn {
+  background-color: #333;
+  color: #fff;
+}
+
+#confirmBtn {
+  background-color: #aca0eb;
+  color: #000;
 }
