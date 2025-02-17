@@ -11,14 +11,25 @@
   width: 125px;
 }
 
+.header span {
+  width: 30px;
+}
+
 .container {
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
   width: 375px;
   margin: 0 auto;
+}
+
+.header .container {
+  justify-content: space-between;
+}
+
+.page-container {
+  flex: 1;
+  flex-direction: column;
 }
 
 .title {
@@ -60,7 +71,6 @@
 }
 
 .validate-error {
-  display: none;
   position: absolute;
   color: red;
   font-size: 11px;
@@ -89,3 +99,24 @@
 }
 
 /* COMMON CSS END */
+
+.label {
+  font-weight: bold;
+}
+
+.thumbnail-btn {
+  width: 120px;
+  height: 120px;
+  background: #c4c4c4;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: normal;
+  margin: 20px auto;
+  cursor: pointer;
+}
+
+.icon-goback {
+  cursor: pointer;
+}
