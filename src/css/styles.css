@@ -90,8 +90,8 @@
 
 .linkto {
   margin: 0 auto;
-  margin-top: 10px;
-  font-size: 15px;
+  margin-top: 8px;
+  font-size: 14px;
 }
 
 .active {
@@ -112,9 +112,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: normal;
   margin: 20px auto;
+  border: 1px solid #eaeaea;
   cursor: pointer;
+}
+
+.has-image {
+  background-size: cover;
+  background-position: center;
+}
+
+.has-image i {
+  display: none;
 }
 
 .icon-goback {
