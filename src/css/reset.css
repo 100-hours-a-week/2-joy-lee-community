@@ -87,9 +87,8 @@ img {
   outline: none;
 }
 
-/* Make sure textarea only resizes vertically */
 textarea {
-  resize: vertical;
+  resize: none;
 }
 
 /* Remove default table spacing */
