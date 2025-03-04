@@ -20,7 +20,7 @@ const handleInput = () => {
 const handleLogin = (e) => {
   e.preventDefault();
   if (isValid) {
-    window.location.href = 'board.html';
+    window.location.href = '../post/list.html';
   }
 };
 
