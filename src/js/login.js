@@ -1,14 +1,26 @@
+import Validator from './utils/validate.js';
+
 const loginBtn = document.getElementById('loginBtn');
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
+const emailErrorMsg = document.querySelector('#loginPage .email-error');
+const passwordErrorMsg = document.querySelector('#loginPage .password-error');
 
-const isValid = true; // 유효성 검사 로직 추가
+emailInput.addEventListener('blur', () => {
+  const email = emailInput.value.trim();
+  Validator.email(email, emailErrorMsg);
+});
+
+passwordInput.addEventListener('blur', () => {
+  const password = passwordInput.value;
+  Validator.password(password, passwordErrorMsg);
+});
 
 const handleInput = () => {
-  const email = emailInput.value;
+  const email = emailInput.value.trim();
   const password = passwordInput.value;
 
-  if (email && password && isValid) {
+  if (email && password) {
     loginBtn.classList.add('active');
     loginBtn.disabled = false;
   } else {
@@ -19,7 +31,16 @@ const handleInput = () => {
 
 const handleLogin = (e) => {
   e.preventDefault();
-  if (isValid) {
+
+  const email = emailInput.value.trim();
+  const password = passwordInput.value;
+  const isEmailValid = Validator.email(email, emailErrorMsg);
+  const isPasswordValid = Validator.password(password, passwordErrorMsg);
+
+  console.log(password, isEmailValid, isPasswordValid);
+  if (isEmailValid && isPasswordValid) {
+    // 로그인 API
+    localStorage.setItem('user', email);
     window.location.href = '../post/list.html';
   }
 };

@@ -80,10 +80,11 @@
   color: var(--black);
 }
 
-.validate-error {
+.error {
   position: absolute;
   color: red;
   font-size: 11px;
+  line-height: 1.2;
   margin-top: 2px;
 }
 
@@ -98,7 +99,7 @@
 
 .submit-btn {
   width: 100%;
-  margin-top: 25px;
+  margin-top: 33px;
 }
 
 .linkto {
