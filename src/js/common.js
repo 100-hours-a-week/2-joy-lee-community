@@ -6,7 +6,7 @@ const createDropdown = () => {
   dropdown.innerHTML = `
       <a href="/pages/edit/userinfo.html">회원정보수정</a>
       <a href="/pages/edit/password.html">비밀번호수정</a>
-      <a href="/pages/login.html">로그아웃</a>
+      <a href="/pages/auth/login.html">로그아웃</a>
   `;
 
   myPageBtn.appendChild(dropdown);
@@ -21,4 +21,8 @@ const createDropdown = () => {
   });
 };
 
-document.addEventListener('DOMContentLoaded', createDropdown);
+window.addEventListener('DOMContentLoaded', () => {
+  const user = localStorage.getItem('user');
+  if (!user) window.location.href = '/pages/auth/login.html';
+  if (user) document.addEventListener('DOMContentLoaded', createDropdown);
+});
