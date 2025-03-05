@@ -21,8 +21,10 @@ const createDropdown = () => {
   });
 };
 
+const user = localStorage.getItem('user');
+
+document.addEventListener('DOMContentLoaded', createDropdown);
+
 window.addEventListener('DOMContentLoaded', () => {
-  const user = localStorage.getItem('user');
   if (!user) window.location.href = '/pages/auth/login.html';
-  if (user) document.addEventListener('DOMContentLoaded', createDropdown);
 });

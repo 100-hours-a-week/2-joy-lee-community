@@ -19,8 +19,10 @@ passwordInput.addEventListener('blur', () => {
 const handleInput = () => {
   const email = emailInput.value.trim();
   const password = passwordInput.value;
+  const isFormValid =
+    Validator.email(email, emailErrorMsg) && Validator.password(password, passwordErrorMsg);
 
-  if (email && password) {
+  if (email && password && isFormValid) {
     loginBtn.classList.add('active');
     loginBtn.disabled = false;
   } else {
