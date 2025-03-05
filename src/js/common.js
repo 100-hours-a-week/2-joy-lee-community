@@ -26,5 +26,5 @@ const user = localStorage.getItem('user');
 document.addEventListener('DOMContentLoaded', createDropdown);
 
 window.addEventListener('DOMContentLoaded', () => {
-  if (!user) window.location.href = '/pages/auth/login.html';
+  // if (!user) window.location.href = '/pages/auth/login.html';
 });
