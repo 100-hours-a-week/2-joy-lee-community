@@ -1,4 +1,15 @@
 import Validator from './utils/validate.js';
+import API from '../api/api.js';
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await API.initData();
+
+  const currentUser = API.user.getCurrentUser();
+  if (currentUser) {
+    window.location.href = '/';
+    return;
+  }
+});
 
 const loginBtn = document.getElementById('loginBtn');
 const emailInput = document.getElementById('email');
@@ -39,11 +50,14 @@ const handleLogin = (e) => {
   const isEmailValid = Validator.email(email, emailErrorMsg);
   const isPasswordValid = Validator.password(password, passwordErrorMsg);
 
-  console.log(password, isEmailValid, isPasswordValid);
   if (isEmailValid && isPasswordValid) {
-    // 로그인 API
-    localStorage.setItem('user', email);
-    window.location.href = '../post/list.html';
+    const result = API.user.login(email, password);
+
+    if (result.success) {
+      window.location.href = '/';
+    } else {
+      window.alert(result.message);
+    }
   }
 };
 

@@ -23,24 +23,24 @@ const Validator = {
   },
 
   password: (password, error) => {
-    // const passwordRegex =
-    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,20}$/;
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,20}$/;
 
     if (!password) {
       error.textContent = '*비밀번호를 입력해주세요.';
       return false;
     }
 
-    if (password.length < 8 || password.length > 20) {
-      error.textContent = '*비밀번호는 8자 이상, 20자 이하여야 합니다.';
-      return false;
-    }
-
-    // if (!passwordRegex.test(password)) {
-    //   error.textContent =
-    //     '비밀번호는 8자 이상, 20자 이하이며, 대문자, 소문자, 숫자, 특수문자를 각각 최소 1개 포함해야 합니다.';
+    // if (password.length < 8 || password.length > 20) {
+    //   error.textContent = '*비밀번호는 8자 이상, 20자 이하여야 합니다.';
     //   return false;
     // }
+
+    if (!passwordRegex.test(password)) {
+      error.textContent =
+        '비밀번호는 8자 이상, 20자 이하이며, 대문자, 소문자, 숫자, 특수문자를 각각 최소 1개 포함해야 합니다.';
+      return false;
+    }
 
     error.textContent = '';
     return true;

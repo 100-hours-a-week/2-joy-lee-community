@@ -1,0 +1,52 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "joy@gmail.com",
+      "password": "Hello123!",
+      "nickname": "joy",
+      "profileImage": "https://avatars.githubusercontent.com/u/68415905?v=4",
+      "createdAt": "2025-03-01T12:00:00Z"
+    },
+    {
+      "id": 2,
+      "email": "huni@gmail.com",
+      "password": "Hello123!",
+      "nickname": "huni",
+      "profileImage": "https://avatars.githubusercontent.com/u/115306845?s=130&v=4",
+      "createdAt": "2025-03-01T12:00:00Z"
+    },
+    {
+      "id": 3,
+      "email": "logan@gmail.com",
+      "password": "Hello123!",
+      "nickname": "logan",
+      "profileImage": "https://avatars.githubusercontent.com/u/120537859?s=130&v=4",
+      "createdAt": "2025-03-03T15:45:00Z"
+    },
+    {
+      "id": 4,
+      "email": "hwarang@gmail.com",
+      "password": "Hello123!",
+      "nickname": "hwarang",
+      "profileImage": "https://avatars.githubusercontent.com/u/78305412?v=4",
+      "createdAt": "2025-03-03T15:45:00Z"
+    },
+    {
+      "id": 5,
+      "email": "nick@gmail.com",
+      "password": "Hello123!",
+      "nickname": "nick",
+      "profileImage": "https://avatars.githubusercontent.com/u/56250226?s=130&v=4",
+      "createdAt": "2025-03-03T15:45:00Z"
+    },
+    {
+      "id": 6,
+      "email": "amber@gmail.com",
+      "password": "Hello123!",
+      "nickname": "amber",
+      "profileImage": "https://avatars.githubusercontent.com/u/117376841?s=64&v=4",
+      "createdAt": "2025-03-03T15:45:00Z"
+    }
+  ]
+}
