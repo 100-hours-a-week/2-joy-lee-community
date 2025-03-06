@@ -51,12 +51,12 @@ const handleLogin = (e) => {
   const isPasswordValid = Validator.password(password, passwordErrorMsg);
 
   if (isEmailValid && isPasswordValid) {
-    const result = API.user.login(email, password);
+    const res = API.user.login(email, password);
 
-    if (result.success) {
+    if (res.success) {
       window.location.href = '/';
     } else {
-      window.alert(result.message);
+      window.alert(res.message);
     }
   }
 };

@@ -18,7 +18,7 @@ const Validator = {
       return false;
     }
 
-    error.textContent = '';
+    if (error) error.textContent = '';
     return true;
   },
 
@@ -42,7 +42,7 @@ const Validator = {
       return false;
     }
 
-    error.textContent = '';
+    if (error) error.textContent = '';
     return true;
   },
 
@@ -57,7 +57,7 @@ const Validator = {
       return false;
     }
 
-    error.textContent = '';
+    if (error) error.textContent = '';
     return true;
   },
 
@@ -82,7 +82,7 @@ const Validator = {
       return false;
     }
 
-    error.textContent = '';
+    if (error) error.textContent = '';
     return true;
   },
 
@@ -92,7 +92,7 @@ const Validator = {
       return false;
     }
 
-    error.textContent = '';
+    if (error) error.textContent = '';
     return true;
   },
 };
