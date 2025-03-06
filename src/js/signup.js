@@ -1,4 +1,9 @@
 import Validator from './utils/validate.js';
+import API from '../api/api.js';
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await API.initData();
+});
 
 const signupBtn = document.getElementById('signupBtn');
 const emailInput = document.getElementById('email');
@@ -34,13 +39,19 @@ const updateThumbnail = (e) => {
 emailInput.addEventListener('blur', () => {
   const email = emailInput.value.trim();
   Validator.email(email, emailErrorMsg);
+
+  if (email && Validator.email(email, null)) {
+    if (API.user.isEmailDuplicate(email)) {
+      emailErrorMsg.textContent = '이미 사용 중인 이메일입니다.';
+      return false;
+    }
+  }
 });
 
 passwordInput.addEventListener('blur', () => {
   const password = passwordInput.value;
   Validator.password(password, password1ErrorMsg);
 
-  // 비밀번호 확인 필드가 비어있지 않다면 일치 여부 확인
   if (password2Input.value) {
     Validator.passwordConfirm(password, password2Input.value, password2ErrorMsg);
   }
@@ -55,6 +66,13 @@ password2Input.addEventListener('blur', () => {
 nicknameInput.addEventListener('blur', () => {
   const nickname = nicknameInput.value.trim();
   Validator.nickname(nickname, nicknameErrorMsg);
+
+  if (nickname && Validator.nickname(nickname, null)) {
+    if (API.user.isNicknameDuplicate(nickname)) {
+      nicknameErrorMsg.textContent = '이미 사용 중인 닉네임입니다.';
+      return false;
+    }
+  }
 });
 
 const handleInput = () => {
@@ -64,10 +82,11 @@ const handleInput = () => {
   const nickname = nicknameInput.value.trim();
   const profileFile = profileInput.files[0];
 
-  const isEmailValid = Validator.email(email, emailErrorMsg);
+  const isEmailValid = Validator.email(email, emailErrorMsg) && !API.user.isEmailDuplicate(email);
   const isPasswordValid = Validator.password(password, password1ErrorMsg);
   const isPasswordConfirmValid = Validator.passwordConfirm(password, password2, password2ErrorMsg);
-  const isNicknameValid = Validator.nickname(nickname, nicknameErrorMsg);
+  const isNicknameValid =
+    Validator.nickname(nickname, nicknameErrorMsg) && !API.user.isNicknameDuplicate(nickname);
   const isProfileValid = Validator.profileImage(profileFile, profileErrorMsg);
 
   const isFormValid =
@@ -82,35 +101,62 @@ const handleInput = () => {
   }
 };
 
-const handleSignup = (e) => {
+const handleSignup = async (e) => {
   e.preventDefault();
 
   const email = emailInput.value.trim();
   const password = passwordInput.value;
-  const password2 = password2Input.value;
   const nickname = nicknameInput.value.trim();
   const profileFile = profileInput.files[0];
 
-  const isEmailValid = Validator.email(email, emailErrorMsg);
-  const isPasswordValid = Validator.password(password, password1ErrorMsg);
-  const isPasswordConfirmValid = Validator.passwordConfirm(password, password2, password2ErrorMsg);
-  const isNicknameValid = Validator.nickname(nickname, nicknameErrorMsg);
-  const isProfileValid = Validator.profileImage(profileFile, profileErrorMsg);
+  if (API.user.isEmailDuplicate(email)) {
+    emailErrorMsg.textContent = '이미 사용 중인 이메일입니다.';
+    signupBtn.disabled = false;
+    return;
+  }
 
-  const isFormValid =
-    isEmailValid && isPasswordValid && isPasswordConfirmValid && isNicknameValid && isProfileValid;
+  if (API.user.isNicknameDuplicate(nickname)) {
+    nicknameErrorMsg.textContent = '이미 사용 중인 닉네임입니다.';
+    signupBtn.disabled = false;
+    return;
+  }
 
-  if (isFormValid) {
-    //  회원가입 API 호출 로직
-    console.log('회원가입 성공:', {
+  try {
+    let profileImageBase64 = '';
+    if (profileFile) {
+      profileImageBase64 = await convertFileToBase64(profileFile);
+    }
+
+    const userData = {
       email,
       password,
       nickname,
-      profileFile,
-    });
+      profileImage: profileImageBase64,
+    };
 
-    window.location.href = '/';
+    const res = API.user.register(userData);
+
+    if (res.success) {
+      alert('회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
+      window.location.href = '/pages/auth/login.html';
+    } else {
+      alert('회원가입 처리 중 오류가 발생했습니다.');
+    }
+  } catch (error) {
+    console.error('회원가입 처리 중 오류 발생:', error);
+    alert('회원가입 처리 중 오류가 발생했습니다.');
+
+    signupBtn.disabled = false;
   }
+};
+
+const convertFileToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 };
 
 [emailInput, passwordInput, password2Input, nicknameInput].forEach((input) => {
