@@ -1,10 +1,10 @@
 import Validator from './utils/validate.js';
-import API from '../api/api.js';
+import { AuthAPI, initAuthData } from '../api/authAPI.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await API.initData();
+  await initAuthData();
 
-  const currentUser = API.user.getCurrentUser();
+  const currentUser = AuthAPI.getCurrentUser();
   if (currentUser) {
     window.location.href = '/';
     return;
@@ -51,7 +51,7 @@ const handleLogin = (e) => {
   const isPasswordValid = Validator.password(password, passwordErrorMsg);
 
   if (isEmailValid && isPasswordValid) {
-    const res = API.user.login(email, password);
+    const res = AuthAPI.login(email, password);
 
     if (res.success) {
       window.location.href = '/';

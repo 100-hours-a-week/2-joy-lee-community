@@ -1,4 +1,4 @@
-import API from '../api/api.js';
+import { AuthAPI } from '../api/authAPI.js';
 
 const myPageBtn = document.getElementById('myPage');
 
@@ -17,7 +17,7 @@ const createDropdown = () => {
   logoutBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
-    const logout = API.user.logout();
+    const logout = AuthAPI.logout();
 
     if (logout.success) {
       alert(logout.message);
@@ -36,7 +36,7 @@ const createDropdown = () => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  const currentUser = API.user.getCurrentUser();
+  const currentUser = AuthAPI.getCurrentUser();
 
   if (!currentUser) {
     window.location.href = '/pages/auth/login.html';
