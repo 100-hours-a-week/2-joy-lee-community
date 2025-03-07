@@ -1,4 +1,4 @@
-async function initData() {
+async function initAuthData() {
   try {
     const response = await fetch('/src/api/data.json');
     if (!response.ok) {
@@ -13,36 +13,36 @@ async function initData() {
   }
 }
 
-const UserAPI = {
+const AuthAPI = {
   getAll: () => {
     return JSON.parse(localStorage.getItem('users') || '[]');
   },
 
   getByEmail: (email) => {
-    const users = UserAPI.getAll();
+    const users = AuthAPI.getAll();
     return users.find((user) => user.email === email) || null;
   },
 
   isEmailDuplicate: (email) => {
-    return UserAPI.getByEmail(email) !== null;
+    return AuthAPI.getByEmail(email) !== null;
   },
 
   isNicknameDuplicate: (nickname) => {
-    const users = UserAPI.getAll();
+    const users = AuthAPI.getAll();
     return users.some((user) => user.nickname === nickname);
   },
 
   register: (userData) => {
-    const users = UserAPI.getAll();
+    const users = AuthAPI.getAll();
 
-    if (UserAPI.isEmailDuplicate(userData.email)) {
+    if (AuthAPI.isEmailDuplicate(userData.email)) {
       return {
         success: false,
         message: '이미 사용 중인 이메일입니다.',
       };
     }
 
-    if (UserAPI.isNicknameDuplicate(userData.nickname)) {
+    if (AuthAPI.isNicknameDuplicate(userData.nickname)) {
       return {
         success: false,
         message: '이미 사용 중인 닉네임입니다.',
@@ -70,7 +70,7 @@ const UserAPI = {
   },
 
   login: (email, password) => {
-    const user = UserAPI.getByEmail(email);
+    const user = AuthAPI.getByEmail(email);
 
     if (user && user.password === password) {
       // 비밀번호 제외한 사용자 정보 저장
@@ -104,7 +104,4 @@ const UserAPI = {
   },
 };
 
-export default {
-  initData,
-  user: UserAPI,
-};
+export { initAuthData, AuthAPI };

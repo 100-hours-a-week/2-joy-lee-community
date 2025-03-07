@@ -1,8 +1,8 @@
 import Validator from './utils/validate.js';
-import API from '../api/api.js';
+import { AuthAPI, initAuthData } from '../api/authAPI.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await API.initData();
+  await initAuthData();
 });
 
 const signupBtn = document.getElementById('signupBtn');
@@ -41,7 +41,7 @@ emailInput.addEventListener('blur', () => {
   Validator.email(email, emailErrorMsg);
 
   if (email && Validator.email(email, null)) {
-    if (API.user.isEmailDuplicate(email)) {
+    if (AuthAPI.isEmailDuplicate(email)) {
       emailErrorMsg.textContent = '이미 사용 중인 이메일입니다.';
       return false;
     }
@@ -68,7 +68,7 @@ nicknameInput.addEventListener('blur', () => {
   Validator.nickname(nickname, nicknameErrorMsg);
 
   if (nickname && Validator.nickname(nickname, null)) {
-    if (API.user.isNicknameDuplicate(nickname)) {
+    if (AuthAPI.isNicknameDuplicate(nickname)) {
       nicknameErrorMsg.textContent = '이미 사용 중인 닉네임입니다.';
       return false;
     }
@@ -82,11 +82,11 @@ const handleInput = () => {
   const nickname = nicknameInput.value.trim();
   const profileFile = profileInput.files[0];
 
-  const isEmailValid = Validator.email(email, emailErrorMsg) && !API.user.isEmailDuplicate(email);
+  const isEmailValid = Validator.email(email, emailErrorMsg) && !AuthAPI.isEmailDuplicate(email);
   const isPasswordValid = Validator.password(password, password1ErrorMsg);
   const isPasswordConfirmValid = Validator.passwordConfirm(password, password2, password2ErrorMsg);
   const isNicknameValid =
-    Validator.nickname(nickname, nicknameErrorMsg) && !API.user.isNicknameDuplicate(nickname);
+    Validator.nickname(nickname, nicknameErrorMsg) && !AuthAPI.isNicknameDuplicate(nickname);
   const isProfileValid = Validator.profileImage(profileFile, profileErrorMsg);
 
   const isFormValid =
@@ -109,13 +109,13 @@ const handleSignup = async (e) => {
   const nickname = nicknameInput.value.trim();
   const profileFile = profileInput.files[0];
 
-  if (API.user.isEmailDuplicate(email)) {
+  if (AuthAPI.isEmailDuplicate(email)) {
     emailErrorMsg.textContent = '이미 사용 중인 이메일입니다.';
     signupBtn.disabled = false;
     return;
   }
 
-  if (API.user.isNicknameDuplicate(nickname)) {
+  if (AuthAPI.isNicknameDuplicate(nickname)) {
     nicknameErrorMsg.textContent = '이미 사용 중인 닉네임입니다.';
     signupBtn.disabled = false;
     return;
@@ -134,7 +134,7 @@ const handleSignup = async (e) => {
       profileImage: profileImageBase64,
     };
 
-    const res = API.user.register(userData);
+    const res = AuthAPI.register(userData);
 
     if (res.success) {
       alert('회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
