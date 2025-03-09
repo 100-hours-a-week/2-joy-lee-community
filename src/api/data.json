@@ -48,5 +48,59 @@
       "profileImage": "https://avatars.githubusercontent.com/u/117376841?s=64&v=4",
       "createdAt": "2025-03-03T15:45:00Z"
     }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "Hellooooo",
+      "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+      "authorId": 1,
+      "author": "joy",
+      "authorProfile": "/src/assets/default-profile.png",
+      "createdAt": "2025-02-15T08:30:00.000Z",
+      "updatedAt": "2025-02-15T08:30:00.000Z",
+      "likes": 10,
+      "views": 42,
+      "commentCount": 2
+    },
+    {
+      "id": 2,
+      "title": "This is my project",
+      "content": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, ",
+      "authorId": 2,
+      "author": "logan",
+      "authorProfile": "/src/assets/default-profile.png",
+      "createdAt": "2025-03-01T10:15:00.000Z",
+      "updatedAt": "2025-03-01T10:15:00.000Z",
+      "likes": 13,
+      "views": 284,
+      "commentCount": 3
+    },
+    {
+      "id": 3,
+      "title": "Thank you for your attention",
+      "content": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
+      "authorId": 3,
+      "author": "nick",
+      "authorProfile": "/src/assets/default-profile.png",
+      "createdAt": "2025-03-07T15:45:00.000Z",
+      "updatedAt": "2025-03-07T16:20:00.000Z",
+      "likes": 12,
+      "views": 56,
+      "commentCount": 4
+    },
+    {
+      "id": 4,
+      "title": "Have a great day",
+      "content": "Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+      "authorId": 4,
+      "author": "huni",
+      "authorProfile": "/src/assets/default-profile.png",
+      "createdAt": "2025-03-08T19:20:00.000Z",
+      "updatedAt": "2025-03-08T19:20:00.000Z",
+      "likes": 2,
+      "views": 31,
+      "commentCount": 5
+    }
   ]
 }

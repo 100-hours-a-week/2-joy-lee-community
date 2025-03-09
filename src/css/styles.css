@@ -209,18 +209,19 @@
 }
 
 .box-footer {
-  padding: 17px 15px;
+  padding: 15px 15px;
   display: flex;
   align-items: center;
 }
 
 .box-footer img {
   border-radius: 50%;
+  width: 30px;
 }
 
 .box-footer span {
   font-size: 14px;
-  margin-left: 10px;
+  margin-left: 8px;
   font-weight: bold;
 }
 
