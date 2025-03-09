@@ -9,7 +9,6 @@ function displayPosts() {
   const postsContainer = document.querySelector('.posts');
   const posts = PostAPI.getAll();
 
-  console.log(posts);
   posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   if (posts.length === 0) {

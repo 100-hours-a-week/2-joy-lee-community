@@ -17,6 +17,11 @@ const PostAPI = {
   getAll: () => {
     return JSON.parse(localStorage.getItem('posts') || '[]');
   },
+
+  getPostById: (id) => {
+    const posts = PostAPI.getAll();
+    return posts.find((post) => post.id === parseInt(id)) || null;
+  },
 };
 
 export { initPostData, PostAPI };

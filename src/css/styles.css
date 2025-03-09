@@ -214,7 +214,8 @@
   align-items: center;
 }
 
-.box-footer img {
+.box-footer img,
+.post-meta img {
   border-radius: 50%;
   width: 30px;
 }
@@ -249,7 +250,7 @@
   width: 100%;
 }
 
-.post div + div {
+.post section + section {
   border-top: var(--border-grey);
   padding-top: 20px;
   margin-top: 20px;
