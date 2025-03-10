@@ -1,5 +1,6 @@
 import { showModal } from '/src/js/utils/modal.js';
 import { PostAPI, initPostData } from '/src/api/postAPI.js';
+import { dateFormatter } from '../utils/dateFormatter.js';
 
 const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -19,6 +20,7 @@ function displayPostById(postId) {
 
   const post = PostAPI.getPostById(postId);
   const isMyPost = post.authorId === currentUser.id;
+  const formattedDate = dateFormatter(new Date(post.createdAt));
 
   const postHeader = document.createElement('div');
   const postBody = document.createElement('div');
@@ -28,7 +30,7 @@ function displayPostById(postId) {
     <div class="post-meta">
       <img src="${post.authorProfile}" alt="${post.author}" />
       <span class="author">${post.author}</span>
-      <span class="created-at">2021-01-01 00:00:00</span>
+      <span class="created-at">${formattedDate}</span>
     </div>
    ${
      isMyPost

@@ -43,5 +43,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
 
+  myPageBtn.querySelector('img').src = currentUser.profileImage;
   createDropdown();
 });
