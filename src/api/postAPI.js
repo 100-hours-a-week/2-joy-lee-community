@@ -52,6 +52,33 @@ const PostAPI = {
       post: newPost,
     };
   },
+
+  update: (id, postData) => {
+    const posts = PostAPI.getAll();
+    const postIndex = posts.findIndex((post) => post.id === parseInt(id));
+
+    if (postIndex === -1) {
+      return {
+        success: false,
+        message: '게시글을 찾을 수 없습니다.',
+      };
+    }
+
+    posts[postIndex] = {
+      ...posts[postIndex],
+      title: postData.title,
+      content: postData.content,
+      updatedAt: new Date().toISOString(),
+    };
+
+    localStorage.setItem('posts', JSON.stringify(posts));
+
+    return {
+      success: true,
+      message: '게시글이 수정되었습니다.',
+      post: posts[postIndex],
+    };
+  },
 };
 
 export { initPostData, PostAPI };
