@@ -1,3 +1,4 @@
+import { showModal } from '/src/js/utils/modal.js';
 import { PostAPI, initPostData } from '/src/api/postAPI.js';
 
 const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -56,6 +57,14 @@ function displayPostById(postId) {
   if (isMyPost) {
     document.getElementById('postEdit').addEventListener('click', () => {
       window.location.href = `/pages/post/write.html?id=${postId}`;
+    });
+
+    document.getElementById('postDelete').addEventListener('click', () => {
+      document.querySelector('.modal-overlay').style.display = 'block';
+      document.querySelector('.modal').style.display = 'block';
+      document.querySelector('.modal').dataset.postId = postId;
+
+      showModal();
     });
   }
 }

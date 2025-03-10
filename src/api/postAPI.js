@@ -79,6 +79,26 @@ const PostAPI = {
       post: posts[postIndex],
     };
   },
+
+  delete: (id) => {
+    const posts = PostAPI.getAll();
+    const post = posts.find((post) => post.id === parseInt(id));
+
+    if (!post) {
+      return {
+        success: false,
+        message: '게시글을 찾을 수 없습니다.',
+      };
+    }
+
+    const updatedPosts = posts.filter((post) => post.id !== parseInt(id));
+    localStorage.setItem('posts', JSON.stringify(updatedPosts));
+
+    return {
+      success: true,
+      message: '게시글이 삭제되었습니다.',
+    };
+  },
 };
 
 export { initPostData, PostAPI };
