@@ -1,3 +1,4 @@
+import { dateFormatter } from '../utils/dateFormatter.js';
 import { PostAPI, initPostData } from '/src/api/postAPI.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -21,7 +22,7 @@ function displayPosts() {
     postBox.className = 'post-box';
     postBox.dataset.postId = post.id;
 
-    const date = new Date(post.createdAt);
+    const formattedDate = dateFormatter(new Date(post.createdAt));
 
     postBox.innerHTML = `
       <a href="pages/post/detail.html?id=${post.id}">
@@ -31,7 +32,7 @@ function displayPosts() {
             <li>좋아요 <span>${post.likes}</span></li>
             <li>댓글 <span>${post.commentCount}</span></li>
             <li>조회수 <span>${post.views}</span></li>
-            <li>2025-03-09 04:20:00</li>
+            <li>${formattedDate}</li>
           </ul>
         </div>
         <div class="box-footer">
