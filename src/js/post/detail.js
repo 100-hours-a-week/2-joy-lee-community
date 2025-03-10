@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const postId = urlParams.get('id');
 
   displayPostById(postId);
+  displayComments(postId);
 });
 
 function displayPostById(postId) {
@@ -34,10 +35,10 @@ function displayPostById(postId) {
     </div>
    ${
      isMyPost
-       ? `<ul class='post-action action-btns'>
+       ? `<div class='post-action action-btns'>
         <button id='postEdit'>수정</button>
         <button id='postDelete'>삭제</button>
-      </ul>`
+      </div>`
        : ''
    }`;
 
@@ -69,4 +70,34 @@ function displayPostById(postId) {
       showModal();
     });
   }
+}
+
+function displayComments(postId) {
+  const comments = PostAPI.getPostById(postId).comments;
+  const commentList = document.querySelector('.comment-list');
+
+  comments.forEach((comment) => {
+    const commentItem = document.createElement('li');
+    const formattedDate = dateFormatter(new Date(comment.createdAt));
+    const isMyComment = comment.authorId === currentUser.id;
+
+    commentItem.innerHTML = `
+      <li class="comment-item">
+        <div class="post-meta">
+          <img src=${comment.authorProfile} alt="" />
+          <span class="author">${comment.author}</span>
+          <span class="created-at">${formattedDate}</span>
+        </div>
+        <p class="comment-text">${comment.content}</p>
+           ${
+             isMyComment
+               ? `<div class='comment-action action-btns'>
+                  <button id='commentEdit'>수정</button>
+                  <button id='commentDelete'>삭제</button>
+                </div>`
+               : ''
+           }`;
+
+    commentList.appendChild(commentItem);
+  });
 }

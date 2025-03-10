@@ -457,6 +457,7 @@
   box-shadow: var(--shadow);
   border-radius: 8px;
   min-width: 150px;
+  z-index: 10;
 }
 
 .dropdown a {
