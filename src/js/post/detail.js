@@ -1,5 +1,7 @@
 import { PostAPI, initPostData } from '/src/api/postAPI.js';
 
+const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
 document.addEventListener('DOMContentLoaded', async () => {
   await initPostData();
 
@@ -15,8 +17,7 @@ function displayPostById(postId) {
   const postBodySection = document.querySelector('.post-body');
 
   const post = PostAPI.getPostById(postId);
-
-  console.log(post, post.title);
+  const isMyPost = post.authorId === currentUser.id;
 
   const postHeader = document.createElement('div');
   const postBody = document.createElement('div');
@@ -28,11 +29,14 @@ function displayPostById(postId) {
       <span class="author">${post.author}</span>
       <span class="created-at">2021-01-01 00:00:00</span>
     </div>
-    <ul class="post-action action-btns">
-      <button id="postEdit">수정</button>
-      <button id="postDelete">삭제</button>
-    </ul>
-  `;
+   ${
+     isMyPost
+       ? `<ul class='post-action action-btns'>
+        <button id='postEdit'>수정</button>
+        <button id='postDelete'>삭제</button>
+      </ul>`
+       : ''
+   }`;
 
   postBody.innerHTML = `
     <img src="https://placehold.co/700x400" alt="" class="post-image" />
@@ -48,4 +52,10 @@ function displayPostById(postId) {
 
   postHeaderSection.appendChild(postHeader);
   postBodySection.appendChild(postBody);
+
+  if (isMyPost) {
+    document.getElementById('postEdit').addEventListener('click', () => {
+      window.location.href = `/pages/post/write.html?id=${postId}`;
+    });
+  }
 }

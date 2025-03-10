@@ -7,6 +7,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const postBtn = document.getElementById('postBtn');
   const formErrorMsg = document.querySelector('.form-error');
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const postId = urlParams.get('id');
+  const isEditMode = !!postId;
+
+  if (isEditMode) {
+    document.querySelector('h2.title').textContent = '게시글 수정';
+    postBtn.textContent = '수정';
+
+    const post = PostAPI.getPostById(parseInt(postId));
+    titleInput.value = post.title;
+    contentInput.value = post.content;
+  }
+
   const handleInput = () => {
     const title = titleInput.value.trim();
     const content = contentInput.value.trim();
@@ -36,7 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let result;
 
-      result = PostAPI.create(postData);
+      if (isEditMode) {
+        result = PostAPI.update(postId, postData);
+      } else {
+        result = PostAPI.create(postData);
+      }
 
       if (result.success) {
         window.location.href = `/pages/post/detail.html?id=${result.post.id}`;
