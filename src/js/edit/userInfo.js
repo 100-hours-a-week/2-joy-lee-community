@@ -72,7 +72,7 @@ const handleUpdate = async (e) => {
 
     const updateData = {
       nickname,
-      profileImage: profileImageBase64,
+      profileImage: profileImageBase64 || user.profileImage,
     };
 
     const res = AuthAPI.updateUserInfo(user.id, updateData);
