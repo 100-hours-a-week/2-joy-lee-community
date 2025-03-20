@@ -66,11 +66,6 @@ const Validator = {
       error.textContent = '*닉네임을 입력해주세요.';
     }
 
-    if (nickname.includes(' ')) {
-      error.textContent = '*띄어쓰기를 없애주세요.';
-      return false;
-    }
-
     if (nickname.length > 10) {
       error.textContent = '*닉네임은 최대 10자까지 작성 가능합니다.';
       return false;
