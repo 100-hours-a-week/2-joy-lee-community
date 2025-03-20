@@ -9,7 +9,7 @@
   border-bottom: var(--border-black);
 }
 
-.header img {
+.header a img {
   width: 125px;
 }
 
@@ -440,6 +440,7 @@
 /* 회원정보 페이지 */
 .mypage-btn img {
   border-radius: 50%;
+  height: 35px;
 }
 
 .mypage-btn {
@@ -477,4 +478,8 @@
 
 .show {
   display: block;
+}
+
+#myEmail {
+  font-size: 13px;
 }
