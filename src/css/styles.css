@@ -439,6 +439,7 @@
 
 /* 회원정보 페이지 */
 .mypage-btn img {
+  width: 100%;
   border-radius: 50%;
   height: 35px;
 }
