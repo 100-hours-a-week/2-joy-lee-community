@@ -129,6 +129,20 @@ const AuthAPI = {
       user: users[userIndex],
     };
   },
+
+  deleteAccount: () => {
+    const users = AuthAPI.getAll();
+    const currentUser = AuthAPI.getCurrentUser();
+    const newUserList = users.filter((user) => user.id !== currentUser.id);
+
+    localStorage.setItem('users', JSON.stringify(newUserList));
+    localStorage.removeItem('currentUser');
+
+    return {
+      success: true,
+      message: '회원탈퇴가 성공적으로 처리되었습니다.',
+    };
+  },
 };
 
 export { initAuthData, AuthAPI };

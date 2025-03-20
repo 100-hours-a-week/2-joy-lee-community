@@ -9,6 +9,7 @@ const profileErrorMsg = document.querySelector('.profile-error');
 const thumbnail = document.querySelector('.thumbnail-btn');
 const myEmail = document.getElementById('myEmail');
 const editBtn = document.getElementById('editBtn');
+const deleteAccountBtn = document.getElementById('deleteAccountBtn');
 
 document.addEventListener('DOMContentLoaded', async () => {
   await initAuthData();
@@ -90,6 +91,24 @@ const handleUpdate = async (e) => {
   }
 };
 
+const deleteAccount = () => {
+  try {
+    const res = AuthAPI.deleteAccount();
+
+    if (res.success) {
+      window.alert('회원탈퇴가 성공적으로 처리되었습니다');
+    } else {
+      window.alert(res.message);
+    }
+  } catch (error) {
+    console.error('회원탈퇴 중 오류 발생:', error);
+    alert('회원탈퇴 중 오류가 발생했습니다.');
+
+    editBtn.disabled = false;
+  }
+};
+
 nicknameInput.addEventListener('input', handleInput);
 profileInput.addEventListener('change', updateThumbnail);
 editBtn.addEventListener('click', handleUpdate);
+deleteAccountBtn.addEventListener('click', deleteAccount);
