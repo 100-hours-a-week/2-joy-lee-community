@@ -102,6 +102,33 @@ const AuthAPI = {
     const userInfo = localStorage.getItem('currentUser');
     return userInfo ? JSON.parse(userInfo) : null;
   },
+
+  updateUserInfo: (userId, updateData) => {
+    const users = AuthAPI.getAll();
+    const userIndex = users.findIndex((user) => user.id === userId);
+
+    if (userIndex === -1) {
+      return {
+        success: false,
+        message: '사용자를 찾을 수 없습니다.',
+      };
+    }
+
+    users[userIndex] = {
+      ...users[userIndex],
+      ...updateData,
+    };
+
+    const { password, ...userInfo } = users[userIndex];
+    localStorage.setItem('users', JSON.stringify(users));
+    localStorage.setItem('currentUser', JSON.stringify(userInfo));
+
+    return {
+      success: true,
+      message: '회원정보가 성공적으로 수정되었습니다.',
+      user: users[userIndex],
+    };
+  },
 };
 
 export { initAuthData, AuthAPI };
