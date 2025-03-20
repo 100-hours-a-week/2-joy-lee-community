@@ -481,6 +481,11 @@
   display: block;
 }
 
-#myEmail {
+#myEmail,
+#nickname {
   font-size: 13px;
+}
+
+#passwordEditPage .form-group {
+  margin-bottom: 30px;
 }
