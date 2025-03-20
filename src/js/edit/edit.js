@@ -1,5 +1,6 @@
 import { AuthAPI, initAuthData } from '/src/api/authAPI.js';
 import Validator from '/src/js/utils/validate.js';
+import { fileToBase64 } from '/src/js/utils/fileToBase64.js';
 
 const nicknameInput = document.getElementById('nickname');
 const nicknameErrorMsg = document.querySelector('.nickname-error');
@@ -49,13 +50,13 @@ const updateThumbnail = (e) => {
   handleInput(); // 입력 상태 확인
 };
 
-const handleUpdate = (e) => {
+const handleUpdate = async (e) => {
   e.preventDefault();
 
   const user = AuthAPI.getCurrentUser();
   console.log(user);
   const nickname = nicknameInput.value.trim();
-  const profile = profileInput.files[0];
+  const profileFile = profileInput.files[0];
 
   if (AuthAPI.isNicknameDuplicate(nickname)) {
     nicknameErrorMsg.textContent = '이미 사용 중인 닉네임입니다.';
@@ -63,16 +64,29 @@ const handleUpdate = (e) => {
     return;
   }
 
-  const res = AuthAPI.updateUserInfo(user.id, {
-    nickname: nickname,
-    profileImage: profile || user.profileImage,
-  });
+  try {
+    let profileImageBase64 = '';
+    if (profileFile) {
+      profileImageBase64 = await fileToBase64(profileFile);
+    }
 
-  console.log(nickname, profile || user.profileImage);
-  if (res.success) {
-    window.alert('회원정보가 수정되었습니다.');
-  } else {
-    window.alert(res.message);
+    const updateData = {
+      nickname,
+      profileImage: profileImageBase64,
+    };
+
+    const res = AuthAPI.updateUserInfo(user.id, updateData);
+
+    if (res.success) {
+      window.alert('회원정보가 수정되었습니다.');
+    } else {
+      window.alert(res.message);
+    }
+  } catch (error) {
+    console.error('회원정보 수정 중 오류 발생:', error);
+    alert('회원정보 수정 중 오류가 발생했습니다.');
+
+    editBtn.disabled = false;
   }
 };
 
