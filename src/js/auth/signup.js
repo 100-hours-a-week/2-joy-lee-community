@@ -1,5 +1,6 @@
-import Validator from './utils/validate.js';
-import { AuthAPI, initAuthData } from '../api/authAPI.js';
+import Validator from '/src/js/utils/validate.js';
+import { AuthAPI, initAuthData } from '/src/api/authAPI.js';
+import { fileToBase64 } from '/src/js/utils/fileToBase64.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   await initAuthData();
@@ -124,7 +125,7 @@ const handleSignup = async (e) => {
   try {
     let profileImageBase64 = '';
     if (profileFile) {
-      profileImageBase64 = await convertFileToBase64(profileFile);
+      profileImageBase64 = await fileToBase64(profileFile);
     }
 
     const userData = {
@@ -148,15 +149,6 @@ const handleSignup = async (e) => {
 
     signupBtn.disabled = false;
   }
-};
-
-const convertFileToBase64 = (file) => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
 };
 
 [emailInput, passwordInput, password2Input, nicknameInput].forEach((input) => {

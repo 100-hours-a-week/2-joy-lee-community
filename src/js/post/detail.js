@@ -43,7 +43,7 @@ function displayPostById(postId) {
    }`;
 
   postBody.innerHTML = `
-    <img src="https://placehold.co/700x400" alt="" class="post-image" />
+    ${post.image ? `<img src=${post.image} alt="" class="post-image" />` : ''}
     <div class="post-text">
       <p>${post.content}</p>
     </div>

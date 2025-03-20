@@ -1,5 +1,5 @@
-import Validator from './utils/validate.js';
-import { AuthAPI, initAuthData } from '../api/authAPI.js';
+import Validator from '/src/js/utils/validate.js';
+import { AuthAPI, initAuthData } from '/src/api/authAPI.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   await initAuthData();
