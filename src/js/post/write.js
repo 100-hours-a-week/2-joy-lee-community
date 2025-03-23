@@ -1,6 +1,7 @@
+import { AuthAPI } from '/src/api/authAPI.js';
 import { PostAPI } from '/src/api/postAPI.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const postForm = document.getElementById('postForm');
   const titleInput = document.getElementById('title');
   const contentInput = document.getElementById('content');
@@ -15,9 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('h2.title').textContent = '게시글 수정';
     postBtn.textContent = '수정';
 
-    const post = PostAPI.getPostById(parseInt(postId));
-    titleInput.value = post.title;
-    contentInput.value = post.content;
+    try {
+      const post = await PostAPI.getPostById(postId);
+      titleInput.value = post.title;
+      contentInput.value = post.content;
+    } catch (error) {
+      console.error('게시글을 불러오는 중 오류 발생:', error);
+      alert('게시글을 불러오는 데 실패했습니다.');
+    }
   }
 
   const handleInput = () => {
@@ -41,18 +47,35 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const title = titleInput.value.trim();
       const content = contentInput.value.trim();
+      const user = AuthAPI.getCurrentUser();
 
-      const postData = {
+      const newPost = {
+        id: Date.now(),
         title,
         content,
+        authorId: user.id,
+        author: user.nickname,
+        authorProfile: user.profileImage,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        likes: 0,
+        views: 0,
+        commentCount: 0,
+        comments: [],
+      };
+
+      const updatePost = {
+        title,
+        content,
+        updatedAt: new Date().toISOString(),
       };
 
       let result;
 
       if (isEditMode) {
-        result = PostAPI.update(postId, postData);
+        result = await PostAPI.update(postId, updatePost);
       } else {
-        result = PostAPI.create(postData);
+        result = await PostAPI.create(newPost);
       }
 
       if (result.success) {

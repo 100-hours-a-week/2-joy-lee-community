@@ -1,14 +1,13 @@
 import { dateFormatter } from '../utils/dateFormatter.js';
-import { PostAPI, initPostData } from '/src/api/postAPI.js';
+import { PostAPI } from '/src/api/postAPI.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await initPostData();
   displayPosts();
 });
 
-function displayPosts() {
+const displayPosts = async () => {
   const postsContainer = document.querySelector('.posts');
-  const posts = PostAPI.getAll();
+  const posts = await PostAPI.getAll();
 
   posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
@@ -44,4 +43,4 @@ function displayPosts() {
 
     postsContainer.appendChild(postBox);
   });
-}
+};

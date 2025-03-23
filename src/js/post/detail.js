@@ -1,12 +1,10 @@
 import { showModal } from '/src/js/utils/modal.js';
-import { PostAPI, initPostData } from '/src/api/postAPI.js';
+import { PostAPI } from '/src/api/postAPI.js';
 import { dateFormatter } from '../utils/dateFormatter.js';
 
 const currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await initPostData();
-
   // URL에서 게시글 ID 가져오기
   const urlParams = new URLSearchParams(window.location.search);
   const postId = urlParams.get('id');
@@ -15,11 +13,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   displayComments(postId);
 });
 
-function displayPostById(postId) {
+const displayPostById = async (postId) => {
   const postHeaderSection = document.querySelector('.post-header');
   const postBodySection = document.querySelector('.post-body');
 
-  const post = PostAPI.getPostById(postId);
+  const post = await PostAPI.getPostById(postId);
   const isMyPost = post.authorId === currentUser.id;
   const formattedDate = dateFormatter(new Date(post.createdAt));
 
@@ -70,10 +68,11 @@ function displayPostById(postId) {
       showModal();
     });
   }
-}
+};
 
-function displayComments(postId) {
-  const comments = PostAPI.getPostById(postId).comments;
+const displayComments = async (postId) => {
+  const posts = await PostAPI.getPostById(postId);
+  const comments = posts.comments;
   const commentList = document.querySelector('.comment-list');
 
   comments.forEach((comment) => {
@@ -100,4 +99,4 @@ function displayComments(postId) {
 
     commentList.appendChild(commentItem);
   });
-}
+};
