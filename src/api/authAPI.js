@@ -1,3 +1,5 @@
+import * as API from './endpoints.js';
+
 async function initAuthData() {
   try {
     const response = await fetch('/src/api/data.json');
@@ -14,17 +16,15 @@ async function initAuthData() {
 }
 
 const AuthAPI = {
-  getAll: () => {
-    return JSON.parse(localStorage.getItem('users') || '[]');
-  },
-
-  getByEmail: (email) => {
-    const users = AuthAPI.getAll();
-    return users.find((user) => user.email === email) || null;
+  getAll: async () => {
+    const response = await fetch(API.USERS);
+    if (!response.ok) throw new Error('유저 정보를 가져오는데 실패했습니다.');
+    return await response.json();
   },
 
   isEmailDuplicate: (email) => {
-    return AuthAPI.getByEmail(email) !== null;
+    const users = AuthAPI.getAll();
+    return users.some((user) => user.email === email);
   },
 
   isNicknameDuplicate: (nickname) => {
@@ -69,12 +69,30 @@ const AuthAPI = {
     };
   },
 
-  login: (email, password) => {
-    const user = AuthAPI.getByEmail(email);
+  login: async (email, password) => {
+    try {
+      const response = await fetch(API.USERS);
 
-    if (user && user.password === password) {
-      // 비밀번호 제외한 사용자 정보 저장
-      const { password, ...userInfo } = user;
+      // const response = await fetch(API.LOGIN, {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ email, password }),
+      // });
+
+      if (!response.ok) throw new Error('유저 정보를 가져오는데 실패했습니다.');
+
+      const users = response.json();
+
+      const user = users.find((user) => user.email === email && user.password === password);
+
+      if (!user) {
+        return {
+          success: false,
+          message: '이메일 또는 비밀번호가 올바르지 않습니다.',
+        };
+      }
+
+      const { password: _, ...userInfo } = user;
       localStorage.setItem('currentUser', JSON.stringify(userInfo));
 
       return {
@@ -82,12 +100,13 @@ const AuthAPI = {
         message: '로그인 성공',
         user: userInfo,
       };
+    } catch (error) {
+      console.error('로그인 중 오류 발생:', error);
+      return {
+        success: false,
+        message: '로그인 중 오류가 발생했습니다.',
+      };
     }
-
-    return {
-      success: false,
-      message: '이메일 또는 비밀번호가 올바르지 않습니다.',
-    };
   },
 
   logout: () => {
