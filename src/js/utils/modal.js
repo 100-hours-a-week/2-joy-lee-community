@@ -9,11 +9,11 @@ export const showModal = () => {
   closeBtn.addEventListener('click', () => closeModal());
 
   if (deleteBtn) {
-    deleteBtn.addEventListener('click', () => {
+    deleteBtn.addEventListener('click', async () => {
       const postId = modal.dataset.postId;
 
       if (postId) {
-        const result = PostAPI.delete(postId);
+        const result = await PostAPI.delete(postId);
 
         if (result.success) {
           alert('게시글이 삭제되었습니다.');
