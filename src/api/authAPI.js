@@ -1,20 +1,5 @@
 import * as API from './endpoints.js';
 
-async function initAuthData() {
-  try {
-    const response = await fetch('/src/api/data.json');
-    if (!response.ok) {
-      throw new Error('유저정보를 불러오는데 실패했습니다.');
-    }
-
-    const data = await response.json();
-
-    localStorage.getItem('users') || localStorage.setItem('users', JSON.stringify(data.users));
-  } catch (error) {
-    console.error('데이터 로드 오류:', error);
-  }
-}
-
 const AuthAPI = {
   getAll: async () => {
     const response = await fetch(API.USERS);
@@ -146,19 +131,27 @@ const AuthAPI = {
     }
   },
 
-  deleteAccount: () => {
-    const users = AuthAPI.getAll();
-    const currentUser = AuthAPI.getCurrentUser();
-    const newUserList = users.filter((user) => user.id !== currentUser.id);
+  deleteAccount: async (userId) => {
+    try {
+      await fetch(API.USER(userId), {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-    localStorage.setItem('users', JSON.stringify(newUserList));
-    localStorage.removeItem('currentUser');
+      localStorage.removeItem('currentUser');
 
-    return {
-      success: true,
-      message: '회원탈퇴가 성공적으로 처리되었습니다.',
-    };
+      return {
+        success: true,
+        message: '회원탈퇴가 성공적으로 처리되었습니다.',
+      };
+    } catch (error) {
+      console.error('회원탈퇴 중 오류 발생:', error);
+      return {
+        success: false,
+        message: '회원탈퇴 중 오류가 발생했습니다.',
+      };
+    }
   },
 };
 
-export { initAuthData, AuthAPI };
+export { AuthAPI };

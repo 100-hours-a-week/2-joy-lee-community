@@ -92,12 +92,15 @@ const handleUpdate = async (e) => {
   }
 };
 
-const deleteAccount = () => {
+const deleteAccount = async () => {
   try {
-    const res = AuthAPI.deleteAccount();
+    const user = AuthAPI.getCurrentUser();
+    const res = await AuthAPI.deleteAccount(user.id);
 
+    console.log(user.id);
     if (res.success) {
       window.alert('회원탈퇴가 성공적으로 처리되었습니다');
+      window.location.href = '/pages/auth/login.html';
     } else {
       window.alert(res.message);
     }
