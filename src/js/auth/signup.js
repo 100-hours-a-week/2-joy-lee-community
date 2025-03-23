@@ -1,10 +1,6 @@
 import Validator from '/src/js/utils/validate.js';
-import { AuthAPI, initAuthData } from '/src/api/authAPI.js';
+import { AuthAPI } from '/src/api/authAPI.js';
 import { fileToBase64 } from '/src/js/utils/fileToBase64.js';
-
-document.addEventListener('DOMContentLoaded', async () => {
-  await initAuthData();
-});
 
 const signupBtn = document.getElementById('signupBtn');
 const emailInput = document.getElementById('email');
@@ -40,22 +36,11 @@ const updateThumbnail = (e) => {
 emailInput.addEventListener('blur', () => {
   const email = emailInput.value.trim();
   Validator.email(email, emailErrorMsg);
-
-  if (email && Validator.email(email, null)) {
-    if (AuthAPI.isEmailDuplicate(email)) {
-      emailErrorMsg.textContent = '이미 사용 중인 이메일입니다.';
-      return false;
-    }
-  }
 });
 
 passwordInput.addEventListener('blur', () => {
   const password = passwordInput.value;
   Validator.password(password, password1ErrorMsg);
-
-  if (password2Input.value) {
-    Validator.passwordConfirm(password, password2Input.value, password2ErrorMsg);
-  }
 });
 
 password2Input.addEventListener('blur', () => {
@@ -67,13 +52,6 @@ password2Input.addEventListener('blur', () => {
 nicknameInput.addEventListener('blur', () => {
   const nickname = nicknameInput.value.trim();
   Validator.nickname(nickname, nicknameErrorMsg);
-
-  if (nickname && Validator.nickname(nickname, null)) {
-    if (AuthAPI.isNicknameDuplicate(nickname)) {
-      nicknameErrorMsg.textContent = '이미 사용 중인 닉네임입니다.';
-      return false;
-    }
-  }
 });
 
 const handleInput = () => {
@@ -83,11 +61,10 @@ const handleInput = () => {
   const nickname = nicknameInput.value.trim();
   const profileFile = profileInput.files[0];
 
-  const isEmailValid = Validator.email(email, emailErrorMsg) && !AuthAPI.isEmailDuplicate(email);
+  const isEmailValid = Validator.email(email, emailErrorMsg);
   const isPasswordValid = Validator.password(password, password1ErrorMsg);
   const isPasswordConfirmValid = Validator.passwordConfirm(password, password2, password2ErrorMsg);
-  const isNicknameValid =
-    Validator.nickname(nickname, nicknameErrorMsg) && !AuthAPI.isNicknameDuplicate(nickname);
+  const isNicknameValid = Validator.nickname(nickname, nicknameErrorMsg);
   const isProfileValid = Validator.profileImage(profileFile, profileErrorMsg);
 
   const isFormValid =
@@ -110,13 +87,12 @@ const handleSignup = async (e) => {
   const nickname = nicknameInput.value.trim();
   const profileFile = profileInput.files[0];
 
-  if (AuthAPI.isEmailDuplicate(email)) {
+  if (await AuthAPI.isEmailDuplicate(email)) {
     emailErrorMsg.textContent = '이미 사용 중인 이메일입니다.';
     signupBtn.disabled = false;
-    return;
   }
 
-  if (AuthAPI.isNicknameDuplicate(nickname)) {
+  if (await AuthAPI.isNicknameDuplicate(nickname)) {
     nicknameErrorMsg.textContent = '이미 사용 중인 닉네임입니다.';
     signupBtn.disabled = false;
     return;
@@ -135,18 +111,17 @@ const handleSignup = async (e) => {
       profileImage: profileImageBase64,
     };
 
-    const res = AuthAPI.register(userData);
+    const res = await AuthAPI.register(userData);
 
     if (res.success) {
       alert('회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
       window.location.href = '/pages/auth/login.html';
     } else {
-      alert('회원가입 처리 중 오류가 발생했습니다.');
+      alert(res.message || '회원가입 처리 중 오류가 발생했습니다.');
     }
   } catch (error) {
     console.error('회원가입 처리 중 오류 발생:', error);
     alert('회원가입 처리 중 오류가 발생했습니다.');
-
     signupBtn.disabled = false;
   }
 };

@@ -22,51 +22,45 @@ const AuthAPI = {
     return await response.json();
   },
 
-  isEmailDuplicate: (email) => {
-    const users = AuthAPI.getAll();
+  isEmailDuplicate: async (email) => {
+    const users = await AuthAPI.getAll();
     return users.some((user) => user.email === email);
   },
 
-  isNicknameDuplicate: (nickname) => {
-    const users = AuthAPI.getAll();
+  isNicknameDuplicate: async (nickname) => {
+    const users = await AuthAPI.getAll();
     return users.some((user) => user.nickname === nickname);
   },
 
-  register: (userData) => {
-    const users = AuthAPI.getAll();
+  register: async (userData) => {
+    try {
+      const response = await fetch(API.USERS, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...userData,
+          createdAt: new Date().toISOString(),
+        }),
+      });
 
-    if (AuthAPI.isEmailDuplicate(userData.email)) {
+      if (!response.ok) {
+        throw new Error('회원가입에 실패했습니다.');
+      }
+
+      const newUser = await response.json();
+
+      return {
+        success: true,
+        message: '회원가입이 완료되었습니다.',
+        user: newUser,
+      };
+    } catch (error) {
+      console.error('회원가입 처리 중 오류 발생:', error);
       return {
         success: false,
-        message: '이미 사용 중인 이메일입니다.',
+        message: '회원가입 처리 중 오류가 발생했습니다.',
       };
     }
-
-    if (AuthAPI.isNicknameDuplicate(userData.nickname)) {
-      return {
-        success: false,
-        message: '이미 사용 중인 닉네임입니다.',
-      };
-    }
-
-    const newUser = {
-      ...userData,
-      id: users.length + 1,
-      createdAt: new Date().toISOString(),
-    };
-
-    users.push(newUser);
-    console.log(newUser, users);
-    localStorage.setItem('users', JSON.stringify(users));
-
-    // 비밀번호 제외한 사용자 정보 반환
-    const { password, ...userWithoutPassword } = newUser;
-
-    return {
-      success: true,
-      message: '회원가입이 완료되었습니다.',
-      user: userWithoutPassword,
-    };
   },
 
   login: async (email, password) => {
@@ -81,8 +75,7 @@ const AuthAPI = {
 
       if (!response.ok) throw new Error('유저 정보를 가져오는데 실패했습니다.');
 
-      const users = response.json();
-
+      const users = await response.json();
       const user = users.find((user) => user.email === email && user.password === password);
 
       if (!user) {
