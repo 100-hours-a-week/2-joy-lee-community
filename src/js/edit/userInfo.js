@@ -1,4 +1,4 @@
-import { AuthAPI, initAuthData } from '/src/api/authAPI.js';
+import { AuthAPI } from '/src/api/authAPI.js';
 import Validator from '/src/js/utils/validate.js';
 import { fileToBase64 } from '/src/js/utils/fileToBase64.js';
 
@@ -12,8 +12,6 @@ const editBtn = document.getElementById('editBtn');
 const deleteAccountBtn = document.getElementById('deleteAccountBtn');
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await initAuthData();
-
   const user = AuthAPI.getCurrentUser();
   myEmail.textContent = user.email;
   thumbnail.style.backgroundImage = `url(${user.profileImage})`;
@@ -22,8 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 const handleInput = () => {
-  const isNicknameValid =
-    Validator.nickname(nickname, nicknameErrorMsg) && !AuthAPI.isNicknameDuplicate(nickname);
+  const isNicknameValid = Validator.nickname(nickname, nicknameErrorMsg);
 
   if (isNicknameValid) {
     editBtn.classList.add('active');
@@ -55,13 +52,12 @@ const handleUpdate = async (e) => {
   e.preventDefault();
 
   const user = AuthAPI.getCurrentUser();
-  console.log(user);
-  const nickname = nicknameInput.value.trim();
+  const newNickname = nicknameInput.value.trim();
   const profileFile = profileInput.files[0];
 
-  if (AuthAPI.isNicknameDuplicate(nickname)) {
+  if ((await AuthAPI.isNicknameDuplicate(newNickname)) && user.nickname !== newNickname) {
     nicknameErrorMsg.textContent = '이미 사용 중인 닉네임입니다.';
-    signupBtn.disabled = false;
+    editBtn.disabled = false;
     return;
   }
 
@@ -71,12 +67,17 @@ const handleUpdate = async (e) => {
       profileImageBase64 = await fileToBase64(profileFile);
     }
 
+    if (user.nickname === newNickname && profileImageBase64 === '') {
+      editBtn.disabled = false;
+      return;
+    }
+
     const updateData = {
-      nickname,
+      nickname: newNickname,
       profileImage: profileImageBase64 || user.profileImage,
     };
 
-    const res = AuthAPI.updateUserInfo(user.id, updateData);
+    const res = await AuthAPI.updateUserInfo(user.id, updateData);
 
     if (res.success) {
       window.alert('회원정보가 수정되었습니다.');

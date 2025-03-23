@@ -115,31 +115,35 @@ const AuthAPI = {
     return userInfo ? JSON.parse(userInfo) : null;
   },
 
-  updateUserInfo: (userId, updateData) => {
-    const users = AuthAPI.getAll();
-    const userIndex = users.findIndex((user) => user.id === userId);
+  updateUserInfo: async (userId, updatedData) => {
+    try {
+      const response = await fetch(API.USER(userId), {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedData),
+      });
 
-    if (userIndex === -1) {
+      if (!response.ok) {
+        throw new Error('회원정보 수정에 실패했습니다.');
+      }
+
+      const updatedUser = await response.json();
+
+      const { password, ...userInfo } = updatedUser;
+      localStorage.setItem('currentUser', JSON.stringify(userInfo));
+
+      return {
+        success: true,
+        message: '회원정보 수정이 완료되었습니다.',
+        user: updatedUser,
+      };
+    } catch (error) {
+      console.error('회원정보 수정 중 오류 발생:', error);
       return {
         success: false,
-        message: '사용자를 찾을 수 없습니다.',
+        message: '회원정보 수정 중 오류가 발생했습니다.',
       };
     }
-
-    users[userIndex] = {
-      ...users[userIndex],
-      ...updateData,
-    };
-
-    const { password, ...userInfo } = users[userIndex];
-    localStorage.setItem('users', JSON.stringify(users));
-    localStorage.setItem('currentUser', JSON.stringify(userInfo));
-
-    return {
-      success: true,
-      message: '회원정보가 성공적으로 수정되었습니다.',
-      user: users[userIndex],
-    };
   },
 
   deleteAccount: () => {
