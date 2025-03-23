@@ -52,7 +52,7 @@ const Validator = {
       return false;
     }
 
-    if (!password1 !== !password2) {
+    if (password1 !== password2) {
       error.textContent = '*비밀번호가 다릅니다.';
       return false;
     }
