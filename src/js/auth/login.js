@@ -1,15 +1,5 @@
 import Validator from '/src/js/utils/validate.js';
-import { AuthAPI, initAuthData } from '/src/api/authAPI.js';
-
-document.addEventListener('DOMContentLoaded', async () => {
-  await initAuthData();
-
-  const currentUser = AuthAPI.getCurrentUser();
-  if (currentUser) {
-    window.location.href = '/';
-    return;
-  }
-});
+import { AuthAPI } from '/src/api/authAPI.js';
 
 const loginBtn = document.getElementById('loginBtn');
 const emailInput = document.getElementById('email');
@@ -42,7 +32,7 @@ const handleInput = () => {
   }
 };
 
-const handleLogin = (e) => {
+const handleLogin = async (e) => {
   e.preventDefault();
 
   const email = emailInput.value.trim();
@@ -51,7 +41,7 @@ const handleLogin = (e) => {
   const isPasswordValid = Validator.password(password, passwordErrorMsg);
 
   if (isEmailValid && isPasswordValid) {
-    const res = AuthAPI.login(email, password);
+    const res = await AuthAPI.login(email, password);
 
     if (res.success) {
       window.location.href = '/';

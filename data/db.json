@@ -1,0 +1,240 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "joy@gmail.com",
+      "password": "Hello123!",
+      "nickname": "joy",
+      "profileImage": "https://avatars.githubusercontent.com/u/68415905?v=4",
+      "createdAt": "2025-03-01T12:00:00Z"
+    },
+    {
+      "id": 2,
+      "email": "huni@gmail.com",
+      "password": "Hello123!",
+      "nickname": "huni",
+      "profileImage": "https://avatars.githubusercontent.com/u/115306845?s=130&v=4",
+      "createdAt": "2025-03-01T12:00:00Z"
+    },
+    {
+      "id": 3,
+      "email": "logan@gmail.com",
+      "password": "Hello123!",
+      "nickname": "logan",
+      "profileImage": "https://avatars.githubusercontent.com/u/120537859?s=130&v=4",
+      "createdAt": "2025-03-03T15:45:00Z"
+    },
+    {
+      "id": 4,
+      "email": "hwarang@gmail.com",
+      "password": "Hello123!",
+      "nickname": "hwarang",
+      "profileImage": "https://avatars.githubusercontent.com/u/78305412?v=4",
+      "createdAt": "2025-03-03T15:45:00Z"
+    },
+    {
+      "id": 5,
+      "email": "nick@gmail.com",
+      "password": "Hello123!",
+      "nickname": "nick",
+      "profileImage": "https://avatars.githubusercontent.com/u/56250226?s=130&v=4",
+      "createdAt": "2025-03-03T15:45:00Z"
+    },
+    {
+      "id": 6,
+      "email": "amber@gmail.com",
+      "password": "Hello123!",
+      "nickname": "amber",
+      "profileImage": "https://avatars.githubusercontent.com/u/117376841?s=64&v=4",
+      "createdAt": "2025-03-03T15:45:00Z"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "Hellooooo",
+      "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+      "authorId": 1,
+      "author": "joy",
+      "authorProfile": "https://avatars.githubusercontent.com/u/68415905?v=4",
+      "createdAt": "2025-02-15T08:30:00.000Z",
+      "updatedAt": "2025-02-15T08:30:00.000Z",
+      "likes": 10,
+      "views": 42,
+      "commentCount": 2,
+      "comments": [
+        {
+          "id": 1,
+          "postId": 1,
+          "content": "정말 좋은 글이네요! 잘 읽었습니다.",
+          "authorId": 3,
+          "author": "logan",
+          "authorProfile": "https://avatars.githubusercontent.com/u/120537859?s=130&v=4",
+          "createdAt": "2025-02-15T09:45:00.000Z"
+        },
+        {
+          "id": 2,
+          "postId": 1,
+          "content": "다음 글도 기대하고 있어요!",
+          "authorId": 2,
+          "author": "huni",
+          "authorProfile": "https://avatars.githubusercontent.com/u/115306845?s=130&v=4",
+          "createdAt": "2025-02-16T14:30:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "This is my project",
+      "content": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, ",
+      "authorId": 2,
+      "author": "logan",
+      "authorProfile": "https://avatars.githubusercontent.com/u/120537859?s=130&v=4",
+      "createdAt": "2025-03-01T10:15:00.000Z",
+      "updatedAt": "2025-03-01T10:15:00.000Z",
+      "likes": 13,
+      "views": 284,
+      "commentCount": 3,
+      "comments": [
+        {
+          "id": 3,
+          "postId": 2,
+          "content": "프로젝트 내용이 정말 흥미롭네요!",
+          "authorId": 1,
+          "author": "joy",
+          "authorProfile": "https://avatars.githubusercontent.com/u/68415905?v=4",
+          "createdAt": "2025-03-01T11:20:00.000Z"
+        },
+        {
+          "id": 4,
+          "postId": 2,
+          "content": "저도 비슷한 프로젝트를 진행 중인데 많은 도움이 됐습니다.",
+          "authorId": 5,
+          "author": "nick",
+          "authorProfile": "https://avatars.githubusercontent.com/u/56250226?s=130&v=4",
+          "createdAt": "2025-03-02T09:15:00.000Z"
+        },
+        {
+          "id": 5,
+          "postId": 2,
+          "content": "추가 정보도 공유해 주시면 감사하겠습니다!",
+          "authorId": 6,
+          "author": "amber",
+          "authorProfile": "https://avatars.githubusercontent.com/u/117376841?s=64&v=4",
+          "createdAt": "2025-03-03T16:40:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Thank you for your attention",
+      "content": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
+      "authorId": 3,
+      "author": "nick",
+      "authorProfile": "https://avatars.githubusercontent.com/u/56250226?s=130&v=4",
+      "createdAt": "2025-03-07T15:45:00.000Z",
+      "updatedAt": "2025-03-07T16:20:00.000Z",
+      "likes": 12,
+      "views": 56,
+      "commentCount": 4,
+      "comments": [
+        {
+          "id": 6,
+          "postId": 3,
+          "content": "정말 유익한 내용이었습니다!",
+          "authorId": 4,
+          "author": "hwarang",
+          "authorProfile": "https://avatars.githubusercontent.com/u/78305412?v=4",
+          "createdAt": "2025-03-07T16:30:00.000Z"
+        },
+        {
+          "id": 7,
+          "postId": 3,
+          "content": "이런 글 더 자주 올려주세요.",
+          "authorId": 1,
+          "author": "joy",
+          "authorProfile": "https://avatars.githubusercontent.com/u/68415905?v=4",
+          "createdAt": "2025-03-07T18:45:00.000Z"
+        },
+        {
+          "id": 8,
+          "postId": 3,
+          "content": "좋은 정보 감사합니다!",
+          "authorId": 2,
+          "author": "huni",
+          "authorProfile": "https://avatars.githubusercontent.com/u/115306845?s=130&v=4",
+          "createdAt": "2025-03-08T09:10:00.000Z"
+        },
+        {
+          "id": 9,
+          "postId": 3,
+          "content": "다음 글도 기대하고 있겠습니다.",
+          "authorId": 6,
+          "author": "amber",
+          "authorProfile": "https://avatars.githubusercontent.com/u/117376841?s=64&v=4",
+          "createdAt": "2025-03-08T14:25:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Have a great day",
+      "content": "Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
+      "authorId": 4,
+      "author": "huni",
+      "authorProfile": "https://avatars.githubusercontent.com/u/115306845?s=130&v=4",
+      "createdAt": "2025-03-08T19:20:00.000Z",
+      "updatedAt": "2025-03-08T19:20:00.000Z",
+      "likes": 2,
+      "views": 31,
+      "commentCount": 5,
+      "comments": [
+        {
+          "id": 10,
+          "postId": 4,
+          "content": "오늘도 좋은 하루 되세요!",
+          "authorId": 1,
+          "author": "joy",
+          "authorProfile": "https://avatars.githubusercontent.com/u/68415905?v=4",
+          "createdAt": "2025-03-08T20:05:00.000Z"
+        },
+        {
+          "id": 11,
+          "postId": 4,
+          "content": "항상 긍정적인 글 감사합니다.",
+          "authorId": 3,
+          "author": "logan",
+          "authorProfile": "https://avatars.githubusercontent.com/u/120537859?s=130&v=4",
+          "createdAt": "2025-03-08T21:30:00.000Z"
+        },
+        {
+          "id": 12,
+          "postId": 4,
+          "content": "이런 글이 하루를 밝게 만드네요.",
+          "authorId": 5,
+          "author": "nick",
+          "authorProfile": "https://avatars.githubusercontent.com/u/56250226?s=130&v=4",
+          "createdAt": "2025-03-09T08:15:00.000Z"
+        },
+        {
+          "id": 13,
+          "postId": 4,
+          "content": "매일 이런 글을 볼 수 있으면 좋겠어요!",
+          "authorId": 6,
+          "author": "amber",
+          "authorProfile": "https://avatars.githubusercontent.com/u/117376841?s=64&v=4",
+          "createdAt": "2025-03-09T10:40:00.000Z"
+        },
+        {
+          "id": 14,
+          "postId": 4,
+          "content": "정말 공감되는 내용입니다.",
+          "authorId": 2,
+          "author": "huni",
+          "authorProfile": "https://avatars.githubusercontent.com/u/115306845?s=130&v=4",
+          "createdAt": "2025-03-09T12:50:00.000Z"
+        }
+      ]
+    }
+  ]
+}
